@@ -12,7 +12,8 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-    origin: [process.env.CLIENT_URL, `http://localhost:${process.env.PORT}`],
+    origin: [process.env.CLIENT_URL, 'http://localhost:3000'],
+    credentials: true,
 }));
 
 app.use((req, res, next) => {
