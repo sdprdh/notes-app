@@ -13,7 +13,12 @@ const NavbarLeft = () => {
             onClick={toggleSidebar}
             icon={open ? <RxCross1 /> : <RiMenu2Line />}
          />
-         <Text fontSize={{ base: 'sm', md: 'md' }}>{crumb}</Text>
+         <Text
+            fontSize={{ base: 'sm', md: 'md' }}
+            minW={32}
+         >
+            {crumb}
+         </Text>
       </HStack>
    );
 };

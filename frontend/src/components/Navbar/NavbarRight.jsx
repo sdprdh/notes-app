@@ -5,7 +5,7 @@ import ButtonIconWithHover from '../ui/ButtonIconWithHover';
 
 const NavbarRight = () => {
    return (
-      <HStack>
+      <HStack spaceX={-2}>
          <ButtonIconWithHover icon={<IoSearch />} />
          <ButtonIconWithHover icon={<BsThreeDotsVertical />} />
       </HStack>

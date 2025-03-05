@@ -9,7 +9,11 @@ const App = () => {
    const { open, toggleSidebar } = useSidebarContext();
 
    return (
-      <Flex>
+      <Flex
+         overflow='hidden'
+         boxSizing='border-box'
+         position='relative'
+      >
          <Sidebar open={open} />
          <Box
             as='main'

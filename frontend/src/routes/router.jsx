@@ -1,7 +1,7 @@
 import App from '@/App';
 import HomePage from '@/pages/HomePage';
 import NoteFavoritePage from '@/pages/NoteFavoritePage';
-import NoteGroup from '@/pages/NoteGroup';
+import NoteGroupPage from '@/pages/NoteGroupPage';
 import NoteTrashPage from '@/pages/NoteTrashPage';
 import SettingsPage from '@/pages/SettingsPage';
 import { createBrowserRouter } from 'react-router-dom';
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
          },
          {
             path: 'catatan-bersama',
-            element: <NoteGroup />,
+            element: <NoteGroupPage />,
          },
          {
             path: 'catatan-favorite',
