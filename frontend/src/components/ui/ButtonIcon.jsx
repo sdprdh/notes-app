@@ -1,14 +1,14 @@
 import { IconButton } from '@chakra-ui/react';
-import { RiMenu2Line } from 'react-icons/ri';
 
-const ButtonIcon = () => {
+const ButtonIcon = ({ onClick, icon, ...props }) => {
    return (
       <IconButton
          unstyled
-         fontSize={{ base: 'md', md: 'xl' }}
          cursor='pointer'
+         onClick={onClick}
+         {...props}
       >
-         <RiMenu2Line />
+         {icon}
       </IconButton>
    );
 };

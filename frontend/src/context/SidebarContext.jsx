@@ -8,10 +8,10 @@ const SidebarContextProvider = ({ children }) => {
       crumb: 'Semua catatan',
    });
 
-   const toggleSidebar = (open) => {
+   const toggleSidebar = () => {
       setState((prev) => ({
          ...prev,
-         open: open || !prev.open,
+         open: !prev.open,
       }));
    };
 

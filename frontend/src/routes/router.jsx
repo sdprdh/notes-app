@@ -1,7 +1,8 @@
 import App from '@/App';
-import DetailsNote from '@/pages/DetailsNote';
-import FavoritesNote from '@/pages/FavoritesNote';
 import HomePage from '@/pages/HomePage';
+import NoteFavoritePage from '@/pages/NoteFavoritePage';
+import NoteGroup from '@/pages/NoteGroup';
+import NoteTrashPage from '@/pages/NoteTrashPage';
 import SettingsPage from '@/pages/SettingsPage';
 import { createBrowserRouter } from 'react-router-dom';
 
@@ -15,15 +16,19 @@ const router = createBrowserRouter([
             element: <HomePage />,
          },
          {
-            path: 'notes/details/:title',
-            element: <DetailsNote />,
+            path: 'catatan-bersama',
+            element: <NoteGroup />,
          },
          {
-            path: 'notes/favorites',
-            element: <FavoritesNote />,
+            path: 'catatan-favorite',
+            element: <NoteFavoritePage />,
          },
          {
-            path: 'settings',
+            path: 'sampah',
+            element: <NoteTrashPage />,
+         },
+         {
+            path: 'pengaturan',
             element: <SettingsPage />,
          },
       ],
