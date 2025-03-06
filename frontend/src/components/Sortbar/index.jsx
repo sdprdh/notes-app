@@ -5,6 +5,7 @@ import SortMenu from './SortMenu';
 const SortBar = () => {
    return (
       <Flex
+         as='section'
          justifyContent='end'
          me={3}
       >

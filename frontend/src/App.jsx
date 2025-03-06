@@ -1,13 +1,17 @@
 import { Box, Flex } from '@chakra-ui/react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import SidebarBackdrop from './components/Sidebar/SidebarBackdrop';
 import SortBar from './components/Sortbar';
 import { useSidebarContext } from './hooks/useSidebarContext';
+import './services/authServices'
 
 const App = () => {
    const { open, toggleSidebar } = useSidebarContext();
+   const { pathname } = useLocation();
+
+   const hiddenPath = !pathname.startsWith('/auth');
 
    return (
       <Flex
@@ -15,7 +19,7 @@ const App = () => {
          boxSizing='border-box'
          position='relative'
       >
-         <Sidebar open={open} />
+         {hiddenPath && <Sidebar open={open} />}
          <Box
             as='main'
             minH='100vh'
@@ -26,16 +30,22 @@ const App = () => {
                lg: open ? '290px' : 0,
             }}
             transition='margin-left 0.3s ease-in-out'
-            px={{ base: 4, md: 6 }}
+            px={{ base: hiddenPath && 4, md: hiddenPath && 6 }}
          >
-            <Navbar />
-            <SortBar />
+            {hiddenPath && (
+               <>
+                  <Navbar />
+                  <SortBar />
+               </>
+            )}
             <Outlet />
          </Box>
-         <SidebarBackdrop
-            open={open}
-            onClick={toggleSidebar}
-         />
+         {open && (
+            <SidebarBackdrop
+               open={open}
+               onClick={toggleSidebar}
+            />
+         )}
       </Flex>
    );
 };
