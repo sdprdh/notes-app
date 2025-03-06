@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import SidebarBackdrop from './components/Sidebar/SidebarBackdrop';
+import SortBar from './components/Sortbar';
 import { useSidebarContext } from './hooks/useSidebarContext';
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
             px={{ base: 4, md: 6 }}
          >
             <Navbar />
+            <SortBar />
             <Outlet />
          </Box>
          <SidebarBackdrop

@@ -15,6 +15,7 @@ const NavbarLeft = () => {
          />
          <Text
             fontSize={{ base: 'sm', md: 'md' }}
+            fontWeight='bold'
             minW={32}
          >
             {crumb}

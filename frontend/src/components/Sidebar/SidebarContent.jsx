@@ -13,7 +13,7 @@ import SidebarItem from './SidebarItem';
 const sidebarLinks = [
    {
       icon: <LuNotebook />,
-      text: 'Semua Catatan',
+      text: 'Semua catatan',
       path: '/',
    },
    {
@@ -37,12 +37,12 @@ const sidebarLinks = [
 const SidebarContent = () => {
    const navigate = useNavigate();
 
-   const { toggleSidebar } = useSidebarContext();
+   const { setCrumbSidebar } = useSidebarContext();
 
    const handleCLickButtonIcon = () => {
       navigate('/pengaturan');
 
-      toggleSidebar();
+      setCrumbSidebar('pengaturan');
    };
 
    return (

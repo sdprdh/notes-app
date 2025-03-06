@@ -5,7 +5,7 @@ import NavbarRight from './NavbarRight';
 const Navbar = () => {
    return (
       <HStack
-         h={{ base: 16 }}
+         h={{ base: 16, md: 20 }}
          justify='space-between'
       >
          <NavbarLeft />
