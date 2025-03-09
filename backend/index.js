@@ -1,10 +1,9 @@
-import { app, PORT } from './app.js';
 import './src/config/db.config.js';
+import app from './app.js';
+
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
    console.clear();
-
-   console.log(
-      `🚀 Server is running! \n🌍 Local: http://localhost:${PORT} \n   Press Ctrl + C to stop the server.`
-   );
+   console.log(`🚀 Server is running! \n🌍 http://localhost:${PORT}`);
 });
