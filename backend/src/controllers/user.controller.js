@@ -79,7 +79,7 @@ const loginUserController = async (req, res) => {
       res.cookie('token', token, {
          httpOnly: true,
          secure: true,
-         sameSite: 'lax',
+         sameSite: 'None',
          maxAge: 24 * 60 * 60 * 1000,
       });
 
@@ -99,7 +99,7 @@ const logoutUserController = async (req, res) => {
       res.clearCookie('token', {
          httpOnly: true,
          secure: true,
-         sameSite: 'lax',
+         sameSite: 'None',
       });
 
       return generateResponse(res, 200, false, 'logout successfully');
