@@ -5,9 +5,6 @@ const noteSchema = new mongoose.Schema({
       type: String,
       required: true,
    },
-   description: {
-      type: String,
-   },
    content: {
       type: String,
    },
@@ -22,6 +19,10 @@ const noteSchema = new mongoose.Schema({
    created_at: {
       type: Date,
       default: Date.now,
+   },
+   deleted_at: {
+      type: Date,
+      default: null,
    },
 });
 

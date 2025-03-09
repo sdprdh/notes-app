@@ -1,34 +1,21 @@
-import { useSidebarContext } from '@/hooks/useSidebarContext';
 import { HStack, Icon, Text } from '@chakra-ui/react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-const SidebarItem = ({ link, styles }) => {
-   const { setCrumbSidebar } = useSidebarContext();
-
-   const navigate = useNavigate();
-
-   const handleCLickNavlink = (e) => {
-      e.preventDefault();
-
-      setCrumbSidebar(link.text);
-
-      navigate(link.path);
-   };
-
+const SidebarItem = ({ data, styles, handleNavigateLink }) => {
    return (
       <NavLink
-         to={link.path}
+         to={data.path}
          style={({ isActive }) => ({
             display: 'block',
             borderRadius: '5px',
             transition: styles.transition,
             backgroundColor: isActive ? styles.bg : 'transparent',
          })}
-         onClick={handleCLickNavlink}
+         onClick={(e) => handleNavigateLink(e, data)}
       >
          <HStack p={3}>
-            <Icon me={2}>{link.icon}</Icon>
-            <Text fontSize={{ base: 'sm', md: 'md' }}>{link.text}</Text>
+            <Icon me={2}>{data.icon}</Icon>
+            <Text fontSize={{ base: 'sm', md: 'md' }}>{data.text}</Text>
             <Text
                ms='auto'
                fontSize='xs'

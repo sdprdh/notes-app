@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import validator from 'validator';
+import Note from '../models/note.model.js';
 import User from '../models/user.model.js';
 import generateHashedPassword from '../utils/generateHashedPassword.util.js';
 import generateResponse from '../utils/generateResponse.util.js';
@@ -35,12 +36,18 @@ const registerUserController = async (req, res) => {
 
       const token = generateToken(user);
 
+      res.cookie('token', token, {
+         httpOnly: true,
+         secure: true,
+         sameSite: 'lax',
+         maxAge: 24 * 60 * 60 * 1000,
+      });
+
       return generateResponse(res, 201, false, 'register succesfully', {
          user: {
             username: user.username,
             email: user.email,
          },
-         token,
       });
    } catch (e) {
       return generateResponse(res, 500, true, e.message);
@@ -69,13 +76,33 @@ const loginUserController = async (req, res) => {
 
       const token = generateToken(user);
 
+      res.cookie('token', token, {
+         httpOnly: true,
+         secure: true,
+         sameSite: 'lax',
+         maxAge: 24 * 60 * 60 * 1000,
+      });
+
       return generateResponse(res, 200, false, 'login succesfully', {
          user: {
             username: user.username,
             email: user.email,
          },
-         token,
       });
+   } catch (e) {
+      return generateResponse(res, 500, true, e.message);
+   }
+};
+
+const logoutUserController = async (req, res) => {
+   try {
+      res.clearCookie('token', {
+         httpOnly: true,
+         secure: true,
+         sameSite: 'lax',
+      });
+
+      return generateResponse(res, 200, false, 'logout successfully');
    } catch (e) {
       return generateResponse(res, 500, true, e.message);
    }
@@ -99,4 +126,34 @@ const getUserController = async (req, res) => {
    }
 };
 
-export { getUserController, loginUserController, registerUserController };
+const deleteUserController = async (req, res) => {
+   const { id } = req.user;
+
+   try {
+      const user = await User.findByIdAndDelete(id, { new: false });
+
+      if (!user) {
+         return generateResponse(res, 404, true, 'user not found');
+      }
+
+      await Note.deleteMany({ user_id: id });
+
+      res.clearCookie('token', {
+         httpOnly: true,
+         secure: true,
+         sameSite: 'lax',
+      });
+
+      return generateResponse(res, 200, false, 'delete account successfully');
+   } catch (e) {
+      return generateResponse(res, 500, true, e.message);
+   }
+};
+
+export {
+   deleteUserController,
+   getUserController,
+   loginUserController,
+   logoutUserController,
+   registerUserController,
+};

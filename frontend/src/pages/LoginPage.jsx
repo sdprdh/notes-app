@@ -1,21 +1,12 @@
 import AuthLayout from '@/components/Layouts/AuthLayout';
-import { useAuthContext } from '@/hooks/useAuthContext';
-import { login } from '@/services/authServices';
+import { useAuthContext } from '@/hooks/context/useAuthContext';
+import { useAuthHandler } from '@/hooks/handler/useAuthHandler';
 import { Box } from '@chakra-ui/react';
 
 const LoginPage = () => {
-   const { error, loading, requestAuth } = useAuthContext();
+   const { error, loading } = useAuthContext();
 
-   const handleLogin = async (e) => {
-      e.preventDefault();
-
-      const user = {
-         username: e.target.username.value,
-         password: e.target.password.value,
-      };
-
-      await requestAuth(user, login);
-   };
+   const { handleLogin } = useAuthHandler();
 
    return (
       <Box as='section'>

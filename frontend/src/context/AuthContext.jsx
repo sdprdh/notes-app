@@ -1,4 +1,4 @@
-import { getData } from '@/utils/storage';
+import { getAuthenticatedUser } from '@/services/authServices';
 import { createContext, useEffect, useReducer } from 'react';
 
 const AuthContext = createContext(null);
@@ -21,6 +21,12 @@ const authReducer = (state, action) => {
             ...state,
             error: action.payload,
          };
+      case 'LOGOUT':
+         return {
+            data: null,
+            error: null,
+            loading: false,
+         };
       default:
          return state;
    }
@@ -34,11 +40,14 @@ const AuthContextProvider = ({ children }) => {
    });
 
    useEffect(() => {
-      const data = getData('user');
+      (async () => {
+         const response = await getAuthenticatedUser();
 
-      dispatch({ type: 'SET_DATA', payload: data || null });
+         if (!response.error) {
+            dispatch({ type: 'SET_DATA', payload: response.data });
+         }
+      })();
    }, []);
-   
 
    return <AuthContext value={{ ...state, dispatch }}>{children}</AuthContext>;
 };

@@ -1,35 +1,36 @@
-const base_url = import.meta.env.VITE_API_URL;
+import { base_url, request } from './request';
 
-const register = async ({ username, email, password }) => {
-   try {
-      const response = await fetch(`${base_url}/api/auth/register`, {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json',
-         },
-         body: JSON.stringify({ username, email, password }),
-      });
-
-      return response.json();
-   } catch (e) {
-      return e;
-   }
+const postRegister = ({ username, email, password }) => {
+   return request(`${base_url}/auth/register`, 'POST', {
+      username,
+      email,
+      password,
+   });
 };
 
-const login = async ({ username, password }) => {
-   try {
-      const response = await fetch(`${base_url}/api/auth/login`, {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json',
-         },
-         body: JSON.stringify({ username, password }),
-      });
-
-      return response.json();
-   } catch (e) {
-      return e;
-   }
+const postLogin = ({ username, password }) => {
+   return request(`${base_url}/auth/login`, 'POST', {
+      username,
+      password,
+   });
 };
 
-export { login, register };
+const postLogout = () => {
+   return request(`${base_url}/auth/logout`, 'POST');
+};
+
+const getAuthenticatedUser = () => {
+   return request(`${base_url}/auth/user`, 'GET');
+};
+
+const deleteAuthenticatedUser = () => {
+   return request(`${base_url}/auth/user`, 'DELETE');
+};
+
+export {
+   deleteAuthenticatedUser,
+   getAuthenticatedUser,
+   postLogin,
+   postLogout,
+   postRegister,
+};

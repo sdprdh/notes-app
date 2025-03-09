@@ -3,19 +3,17 @@ import generateResponse from '../utils/generateResponse.util.js';
 
 const verifyToken = (req, res, next) => {
    try {
-      const authHeader = req.headers.authorization;
+      const token = req.cookies.token;
 
-      if (!authHeader?.startsWith('Bearer ')) {
-         return generateResponse(res, 401, true, 'no token provided');
+      if (!token) {
+         return generateResponse(res, 401, true, 'Please log in again.');
       }
-
-      const token = authHeader.split(' ')[1];
 
       req.user = jwt.verify(token, process.env.JWT_SECRET);
 
       next();
    } catch (error) {
-      return generateResponse(res, 403, true, 'invalid or expired token');
+      return generateResponse(res, 403, true, 'Invalid or expired token.');
    }
 };
 

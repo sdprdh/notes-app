@@ -1,6 +1,6 @@
 import { Box, Flex, HStack } from '@chakra-ui/react';
-import SortArrow from './SortArrow';
-import SortMenu from './SortMenu';
+import SortArrow from './SortbarArrow';
+import SortMenu from './SortbarMenu';
 
 const SortBar = () => {
    return (

@@ -41,22 +41,6 @@ const getNotesController = async (req, res) => {
    }
 };
 
-const getNoteController = async (req, res) => {
-   const { id } = req.params;
-
-   try {
-      const note = await Note.findById(id).select('-__v').lean();
-
-      if (!note) {
-         return generateResponse(res, 404, true, 'note not found');
-      }
-
-      return generateResponse(res, 200, false, 'get note succesfully', note);
-   } catch (e) {
-      return generateResponse(res, 500, true, e.message);
-   }
-};
-
 const updateNoteController = async (req, res) => {
    const { id } = req.params;
 
@@ -93,10 +77,31 @@ const deleteNoteController = async (req, res) => {
    }
 };
 
+const getNotesFavoriteController = async (req, res) => {
+   const { id } = req.user;
+
+   try {
+      const notes = await Note.find({ user_id: id, favorite: true })
+         .sort({ created_at: -1 })
+         .select('-__v')
+         .lean();
+
+      return generateResponse(
+         res,
+         200,
+         false,
+         'get notes favorite succesfully',
+         notes
+      );
+   } catch (e) {
+      return generateResponse(res, 500, true, e.message);
+   }
+};
+
 export {
    createNoteController,
    deleteNoteController,
-   getNoteController,
    getNotesController,
+   getNotesFavoriteController,
    updateNoteController,
 };

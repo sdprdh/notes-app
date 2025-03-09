@@ -5,6 +5,9 @@ const ButtonIcon = ({ onClick, icon, ...props }) => {
       <IconButton
          unstyled
          cursor='pointer'
+         display='flex'
+         alignItems='center'
+         justifyContent='center'
          onClick={onClick}
          {...props}
       >

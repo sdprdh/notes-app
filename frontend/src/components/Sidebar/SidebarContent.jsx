@@ -1,5 +1,5 @@
-import { useAuthContext } from '@/hooks/useAuthContext';
-import { useSidebarContext } from '@/hooks/useSidebarContext';
+import { useAuthContext } from '@/hooks/context/useAuthContext';
+import { useUIContext } from '@/hooks/context/useUIContext';
 import { Box, Flex, HStack, Text } from '@chakra-ui/react';
 import { BsBookmarkHeart } from 'react-icons/bs';
 import { GoTrash } from 'react-icons/go';
@@ -37,15 +37,22 @@ const sidebarLinks = [
 ];
 
 const SidebarContent = () => {
-   const navigate = useNavigate();
+   const { dispatchSidebar } = useUIContext();
 
-   const { setCrumbSidebar } = useSidebarContext();
    const { data } = useAuthContext();
+
+   const navigate = useNavigate();
 
    const handleCLickButtonIcon = () => {
       navigate('/pengaturan');
 
-      setCrumbSidebar('Pengaturan');
+      dispatchSidebar({ type: 'SET_CRUMB', payload: '/pengaturan' });
+   };
+
+   const handleNavigateLink = (e, item) => {
+      e.preventDefault();
+
+      navigate(item.path);
    };
 
    return (
@@ -69,11 +76,12 @@ const SidebarContent = () => {
          </Flex>
 
          <Box flexGrow={1}>
-            {sidebarLinks.map((link, i) => (
+            {sidebarLinks.map((data, i) => (
                <SidebarItem
                   key={i}
-                  link={link}
+                  data={data}
                   styles={styles}
+                  handleNavigateLink={handleNavigateLink}
                />
             ))}
          </Box>
@@ -90,11 +98,11 @@ const SidebarContent = () => {
                >
                   <Avatar
                      size={{ base: 'sm', md: 'md' }}
-                     name={data.user.username}
-                     src={data.user.img}
+                     name={data.username}
+                     src={data.img}
                   />
                   <Text fontSize={{ base: 'sm', md: 'md' }}>
-                     {data.user.username}
+                     {data.username}
                   </Text>
                </HStack>
             ) : (

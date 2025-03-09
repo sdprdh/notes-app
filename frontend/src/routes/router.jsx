@@ -1,4 +1,5 @@
 import App from '@/App';
+import AddNotePage from '@/pages/AddNotePage';
 import HomePage from '@/pages/HomePage';
 import LoginPage from '@/pages/LoginPage';
 import NoteFavoritePage from '@/pages/NoteFavoritePage';
@@ -6,6 +7,7 @@ import NoteGroupPage from '@/pages/NoteGroupPage';
 import NoteTrashPage from '@/pages/NoteTrashPage';
 import RegisterPage from '@/pages/RegisterPage';
 import SettingsPage from '@/pages/SettingsPage';
+import UpdateNotePage from '@/pages/UpdateNotePage';
 import { createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -40,6 +42,14 @@ const router = createBrowserRouter([
          {
             path: 'auth/masuk',
             element: <LoginPage />,
+         },
+         {
+            path: 'tambah-catatan',
+            element: <AddNotePage />,
+         },
+         {
+            path: 'edit-catatan',
+            element: <UpdateNotePage />,
          },
       ],
    },

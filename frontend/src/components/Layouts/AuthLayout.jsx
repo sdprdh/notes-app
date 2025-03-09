@@ -64,7 +64,7 @@ const AuthLayout = ({
             </Card.Body>
             <Card.Footer mt={-2}>
                <Center w='full'>
-                  <HStack fontSize='xs'>
+                  <HStack fontSize='sm'>
                      <Text>
                         {!isLogin ? 'Sudah punya akun?' : 'Belum punya akun?'}
                      </Text>

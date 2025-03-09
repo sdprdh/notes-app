@@ -4,23 +4,20 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext';
 import { NoteContextProvider } from './context/NoteContext';
-import { SidebarContextProvider } from './context/SidebarContext';
-import { SortContextProvider } from './context/SortContext';
+import { UIContextProvider } from './context/UIContext';
 import router from './routes/router';
 import system from './theme/theme';
 
 createRoot(document.getElementById('root')).render(
    <StrictMode>
       <ChakraProvider value={system}>
-         <SidebarContextProvider>
+         <UIContextProvider>
             <AuthContextProvider>
-               <SortContextProvider>
-                  <NoteContextProvider>
-                     <RouterProvider router={router} />
-                  </NoteContextProvider>
-               </SortContextProvider>
+               <NoteContextProvider>
+                  <RouterProvider router={router} />
+               </NoteContextProvider>
             </AuthContextProvider>
-         </SidebarContextProvider>
+         </UIContextProvider>
       </ChakraProvider>
    </StrictMode>
 );
